@@ -7,16 +7,16 @@ public class OperationManager : MonoBehaviour
 {
     //top text displays -> cannot input
     //bottom text used to input and add
-    public Text bottomText, topText; 
+    public Text bottomText, topText;
 
-
-    private string currentOperator;
     private double currentValue = 0;
+    private string currentOperator;
 
     //display value in the bottom value
     public void DisplayValue(string number)
     {
         bottomText.text += number;
+        currentValue += double.Parse(number);
     }
     public void DisplayOperator(string op)
     {
@@ -27,7 +27,6 @@ public class OperationManager : MonoBehaviour
     public void Clear()
     {
         currentValue = 0;
-        currentOperator = null;
         bottomText.text = "";
         topText.text = "";
     }
@@ -37,7 +36,13 @@ public class OperationManager : MonoBehaviour
         //value in the bottom text goes to the top text and bottom text updates the answer
         topText.text = bottomText.text;
 
-        //get the answer
+        //if the operation ends or starts with an operator then you cannot perform a calculation
+        /*if ((bottomText.text.Substring(bottomText.text.Length - 1) == operatorValue) || (bottomText.text.Substring(0) == operatorValue))
+        {
+            bottomText.text = "ERROR!";
+        }*/
+        //perform calucaltion by dividing the operators within the current value
+        //bottomText.text = "";
         switch (currentOperator)
         {
             case "+":
@@ -57,9 +62,8 @@ public class OperationManager : MonoBehaviour
                 bottomText.text = currentValue.ToString();
                 break;
         }
-        currentOperator = null;
 
-        //if the operation ends with an operator then you cannot perform a calculation
-        //perform calucaltion by dividing the operators within the current value
+        currentOperator = null;
     }
+
 }
