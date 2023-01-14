@@ -26,11 +26,22 @@ public class OperationManager : MonoBehaviour
     }
     public void Calculate()
     {
+        System.Data.DataTable table = new System.Data.DataTable();
+
         string value = bottomText.text.ToString();
 
-        topText.text = bottomText.text; //operation done to be displayed
+        //operation done to be displayed i.e 2+2
+        topText.text = bottomText.text;
 
-        //display answer to the bottom text
-
+        //display answer to the bottom text i.e =4
+        try
+        {
+            bottomText.text = "" + table.Compute(value, "");
+        }
+        catch (System.Exception)
+        {
+            bottomText.text = "INVALID";
+            throw;
+        }
     }
 }
